@@ -3,7 +3,7 @@
 El taller está diseñado para aprender a crear y administrar infraestructura como código con Terraform en Azure. Se divide en 6 módulos:
 
 - Introducción a la Infraestructura como Código, Terraform y Azure
-- [Taller01 - Configurar entorno local](https://github.com/lzeladam/formacioniac/blob/main/taller01/taller01-configurar-entorno-local.md)
+- **[Taller01 - Configurar entorno local](https://github.com/lzeladam/formacioniac/blob/main/taller01/taller01-configurar-entorno-local.md)**
 - Taller02 - Administrar networking, storage, virtual machine con Terraform
 - Taller03 - Versionado de código
 - Taller04 - Administrar kubernetes con Terraform
