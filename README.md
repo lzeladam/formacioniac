@@ -4,11 +4,11 @@ El taller está diseñado para aprender a crear y administrar infraestructura co
 
 - Introducción a la Infraestructura como Código, Terraform y Azure
 - **[Taller01 - Configurar entorno local](https://github.com/lzeladam/formacioniac/blob/main/taller01/taller01-configurar-entorno-local.md)**
-- Taller02 - Administrar networking, storage, virtual machine con Terraform
-- Taller03 - Versionado de código
-- Taller04 - Administrar kubernetes con Terraform
-- Taller05 - Módulos Terraform
-- Taller06 - Buenas Practicas
+- **[Taller02 - Administrar networking, storage, virtual machine con Terraform](https://github.com/lzeladam/formacioniac/blob/main/taller02/taller02-networking-vm-storage.md)**
+- **[Taller03 - Versionado de código](https://github.com/lzeladam/formacioniac/blob/main/taller03/taller03-versionado.md)**
+- **[Taller04 - Administrar kubernetes con Terraform](https://github.com/lzeladam/formacioniac/blob/main/taller04/taller04-kubernetes.md)**
+- **[Taller05 - Módulos Terraform](https://github.com/lzeladam/formacioniac/blob/main/taller05/taller05-modulos-terraform.md)**
+- **[Taller06 - Buenas Practicas](https://github.com/lzeladam/formacioniac/blob/main/taller06/taller06-buenas-practicas.md)**
 
 # Enlaces de interes
 
