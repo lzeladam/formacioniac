@@ -1,6 +1,6 @@
 # Configurar entorno de trabajo
 
-# 1. Instalar el CLI de Azure
+## 1. Instalar el CLI de Azure
 
 **Ubuntu**:
 
@@ -52,7 +52,7 @@ Name        ID                                    Default
 COMPANY_NAME 851476e7f18f4ea4337b0d83165d4396        True
 ```
 
-# 2. Terraform
+## 2. Terraform
 
 **Ubuntu**
 
@@ -70,7 +70,7 @@ Descarga el archivo ejecutable desde esta página web:
 
 [Install | Terraform | HashiCorp Developer](https://developer.hashicorp.com/terraform/downloads)
 
-# 3. Crear Service Principal
+## 3. Crear Service Principal
 
 Si estás ejecutando esto desde Git Bash, ejecuta el siguiente comando:
 
@@ -91,7 +91,7 @@ az ad sp create-for-rbac --name SP_SERVICE_PRINCIPAL_NAME --role Contributor --s
 }
 ```
 
-# 4. Autenticación de Terraform en Azure
+## 4. Autenticación de Terraform en Azure
 
 **Ubuntu**
 
@@ -139,7 +139,7 @@ Para confirmar la suscripción actual en Azure CLI:
 az account show
 ```
 
-# Enlaces de interés
+## Enlaces de interés
 
 - [https://www.msys2.org/docs/filesystem-paths/](https://www.msys2.org/docs/filesystem-paths/)
 - [https://learn.microsoft.com/es-es/cli/azure/install-azure-cli-linux?pivots=apt](https://learn.microsoft.com/es-es/cli/azure/install-azure-cli-linux?pivots=apt)
