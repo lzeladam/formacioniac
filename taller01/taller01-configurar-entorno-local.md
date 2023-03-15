@@ -66,9 +66,15 @@ sudo apt update && sudo apt install terraform
 
 **Windows**
 
-Descarga el archivo ejecutable desde esta página web:
-
-[Install | Terraform | HashiCorp Developer](https://developer.hashicorp.com/terraform/downloads)
+- Descarga el archivo ejecutable desde esta página web: 
+  - [Install | Terraform | HashiCorp Developer](https://developer.hashicorp.com/terraform/downloads)
+- Extrae el ejecutable en un directorio (por ejemplo c:\terraform)
+- Actualiza las variables de entorno
+- Abre una nueva ventana del terminal
+- Verifica la configuración de global path con:
+```bash 
+terraform -version
+```
 
 ## 3. Crear Service Principal
 
