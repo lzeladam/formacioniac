@@ -1,3 +1,3 @@
 variable "prefix" {
-  default = "glbrs"
+  default = "taller01"
 }
