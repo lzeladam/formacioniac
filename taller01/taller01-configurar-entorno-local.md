@@ -144,6 +144,61 @@ Para confirmar la suscripción actual en Azure CLI:
 ```powershell
 az account show
 ```
+# Demo
+
+Abre el terminal de Git Bash y genera la clave SSH usando el siguiente comando :
+
+```bash
+ssh-keygen
+```
+
+Clona el repositorio del taller ejecutando git clone:
+
+```bash
+git clone https://github.com/lzeladam/formacioniac.git
+```
+
+Después de clonar el repositorio, nos dirigimos al directorio demo01:
+
+```bash
+cd \formacioniac\taller01\demo01
+```
+
+Una vez que estemos dentro de la carpeta demo01, ejecutaremos los siguientes comandos de manera secuencial:
+
+```bash
+terraform init --upgrade
+terraform validate
+terraform plan
+```
+
+Para construir la infraestructura, ejecutamos:
+
+```bash
+terraform apply
+```
+
+Una vez ejecutados los comandos anteriores, podremos ver la siguiente infraestructura en el grupo de recursos GR_LABS:
+
+![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/a62d2832-f0f6-4fd0-a598-8cc6ef0fd89d/Untitled.png)
+
+Ahora debes conectarte a la maquina virtual utilizando el siguiente comando:
+
+```bash
+ ssh -i ~/.ssh/id_rsa [testadmin@](mailto:testadmin@20.122.121.203)IP_PUBLICA
+```
+
+Ahora procede a eliminar la infraestructura. Antes de hacerlo, genera un plan de lo que vas a destruir ejecutando el siguiente comando:
+
+```bash
+terraform plan —destroy
+```
+
+Finalmente, si estás conforme con el plan generado, procede a destruir la infraestructura ejecutando el siguiente comando:
+
+```bash
+terraform apply —destroy 
+```
 
 ## Enlaces de interés
 
