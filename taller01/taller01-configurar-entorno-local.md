@@ -180,24 +180,24 @@ terraform apply
 
 Una vez ejecutados los comandos anteriores, podremos ver la siguiente infraestructura en el grupo de recursos GR_LABS:
 
-![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/a62d2832-f0f6-4fd0-a598-8cc6ef0fd89d/Untitled.png)
+![Resource Group GR_LABS](../taller01/imagenes/demo01azureportal.png)
 
 Ahora debes conectarte a la maquina virtual utilizando el siguiente comando:
 
 ```bash
- ssh -i ~/.ssh/id_rsa [testadmin@](mailto:testadmin@20.122.121.203)IP_PUBLICA
+ ssh -i ~/.ssh/id_rsa testadmin@IP_PUBLICA
 ```
 
 Ahora procede a eliminar la infraestructura. Antes de hacerlo, genera un plan de lo que vas a destruir ejecutando el siguiente comando:
 
 ```bash
-terraform plan —destroy
+terraform plan --destroy
 ```
 
 Finalmente, si estás conforme con el plan generado, procede a destruir la infraestructura ejecutando el siguiente comando:
 
 ```bash
-terraform apply —destroy 
+terraform apply --destroy 
 ```
 
 ## Enlaces de interés
