@@ -89,6 +89,30 @@ resource "azurerm_network_security_group" "nsg" {
         destination_address_prefix = "*"
     }
 
+    security_rule {
+        name                       = "RDP"
+        priority                   = 1004
+        direction                  = "Inbound"
+        access                     = "Allow"
+        protocol                   = "Tcp"
+        source_port_range          = "*"
+        destination_port_range     = "3389"
+        source_address_prefix      = "*"
+        destination_address_prefix = "*"
+    }
+
+    security_rule {
+        name                       = "ICMP"
+        priority                   = 1005
+        direction                  = "Inbound"
+        access                     = "Allow"
+        protocol                   = "Icmp"
+        source_port_range          = "*"
+        destination_port_range     = "*"
+        source_address_prefix      = "*"
+        destination_address_prefix = "*"
+    }
+
     tags = {
         environment = "onprem"
     }
@@ -217,4 +241,59 @@ resource "gitlab_project" "example" {
   description = "My awesome codebase"
 
   visibility_level = "public"
+}
+
+
+resource "azurerm_network_interface" "nic_windows" {
+  name                =  "${var.prefix}-nic-internal-windows"
+  location            = data.azurerm_resource_group.rg.location
+  resource_group_name = data.azurerm_resource_group.rg.name
+
+  ip_configuration {
+    name                          = "internal"
+    subnet_id                     = azurerm_subnet.subnet_internal.id
+    private_ip_address_allocation = "Dynamic"
+  }
+}
+
+resource "azurerm_windows_virtual_machine" "windows_vm" {
+  name                = "${var.prefix}-win-vm"
+  location            = data.azurerm_resource_group.rg.location
+  resource_group_name = data.azurerm_resource_group.rg.name
+  size                = "Standard_F2"
+  admin_username      = "adminuser"
+  admin_password      = "P@$$w0rd1234!"
+  network_interface_ids = [
+    azurerm_network_interface.nic_windows.id,
+  ]
+
+  os_disk {
+    caching              = "ReadWrite"
+    storage_account_type = "Standard_LRS"
+  }
+
+  source_image_reference {
+    publisher = "MicrosoftWindowsServer"
+    offer     = "WindowsServer"
+    sku       = "2016-Datacenter"
+    version   = "latest"
+  }
+}
+
+resource "azurerm_container_registry" "acr" {
+  name                = "${var.prefix}containerRegistry1"
+  location            = data.azurerm_resource_group.rg.location
+  resource_group_name = data.azurerm_resource_group.rg.name
+  sku                 = "Premium"
+  admin_enabled       = false
+  georeplications {
+    location                = "WEST US 2"
+    zone_redundancy_enabled = true
+    tags                    = {}
+  }
+  georeplications {
+    location                = "North Europe"
+    zone_redundancy_enabled = true
+    tags                    = {}
+  }
 }
