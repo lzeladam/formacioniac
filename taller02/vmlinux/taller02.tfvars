@@ -1,0 +1,1 @@
+gitlab_token = "glpat-5nryxX6xgz9tzrQpdpek"
