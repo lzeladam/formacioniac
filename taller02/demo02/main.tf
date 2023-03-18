@@ -11,7 +11,7 @@ terraform {
   }
 }
 
-
+# Configure the GitLab Provider
 provider "gitlab" {
   token = var.gitlab_token
   base_url  = "http://10.0.2.4"
@@ -22,11 +22,12 @@ provider "azurerm" {
   features {}
 }
 
-# Recover resource group name
+# Retrieves the Azure Resource Group information
 data "azurerm_resource_group" "rg" {
   name = "GR_LABS"
 }
 
+# Creates  a virtual network in Azure
 resource "azurerm_virtual_network" "virtual_network" {
   name                = "${var.prefix}-virtual-network"
   address_space       = ["10.0.0.0/16"]
@@ -34,13 +35,15 @@ resource "azurerm_virtual_network" "virtual_network" {
   resource_group_name = data.azurerm_resource_group.rg.name
 }
 
-resource "azurerm_subnet" "subnet_internal" {
-  name                 = "${var.prefix}-subnet-internal"
+# Creates a subnet within the virtual network for internal use
+resource "azurerm_subnet" "internal_subnet" {
+  name                 = "${var.prefix}-internal-subnet"
   resource_group_name  = data.azurerm_resource_group.rg.name
   virtual_network_name = azurerm_virtual_network.virtual_network.name
   address_prefixes     = ["10.0.2.0/24"]
 }
 
+# Creates a subnet for gateway use within the virtual network 
 resource "azurerm_subnet" "gateway-subnet" {
   name                 = "GatewaySubnet"
   resource_group_name  = data.azurerm_resource_group.rg.name
@@ -48,8 +51,9 @@ resource "azurerm_subnet" "gateway-subnet" {
   address_prefixes     = ["10.0.3.0/27"]
 }
 
-resource "azurerm_network_security_group" "nsg" {
-    name                = "${var.prefix}-nsg"
+# Creates a network security group to internal subnet to allow certain network traffic
+resource "azurerm_network_security_group" "internal_nsg" {
+    name                = "${var.prefix}-internal-nsg"
     location            = data.azurerm_resource_group.rg.location
     resource_group_name = data.azurerm_resource_group.rg.name
 
@@ -118,21 +122,24 @@ resource "azurerm_network_security_group" "nsg" {
     }
 }
 
-resource "azurerm_subnet_network_security_group_association" "subnet_internal-nsg-association" {
-    subnet_id                 = azurerm_subnet.subnet_internal.id
-    network_security_group_id = azurerm_network_security_group.nsg.id
+# Associates the internal subnet with the created network security group 
+resource "azurerm_subnet_network_security_group_association" "internal_subnet_nsg_association" {
+    subnet_id                 = azurerm_subnet.internal_subnet.id
+    network_security_group_id = azurerm_network_security_group.internal_nsg.id
 }
 
-resource "azurerm_public_ip" "vpn-gateway1-pip" {
-  name                = "${var.prefix}-vpn-gateway1-pip"
+# Creates a public IP address for the virtual network gateway
+resource "azurerm_public_ip" "vpn-gateway-pip" {
+  name                = "${var.prefix}-vpn-gateway-pip"
   location            = data.azurerm_resource_group.rg.location
   resource_group_name = data.azurerm_resource_group.rg.name
 
   allocation_method = "Dynamic"
 }
 
-resource "azurerm_virtual_network_gateway" "onprem-vpn-gateway" {
-    name                = "${var.prefix}-onprem-vpn-gateway1"
+# Creates a virtual network gateway
+resource "azurerm_virtual_network_gateway" "vpn-gateway" {
+    name                = "${var.prefix}-vpn-gateway"
     location            = data.azurerm_resource_group.rg.location
     resource_group_name = data.azurerm_resource_group.rg.name
 
@@ -145,7 +152,7 @@ resource "azurerm_virtual_network_gateway" "onprem-vpn-gateway" {
 
     ip_configuration {
     name                          = "vnetGatewayConfig"
-    public_ip_address_id          = azurerm_public_ip.vpn-gateway1-pip.id
+    public_ip_address_id          = azurerm_public_ip.vpn-gateway-pip.id
     private_ip_address_allocation = "Dynamic"
     subnet_id                     = azurerm_subnet.gateway-subnet.id
     }
@@ -178,28 +185,31 @@ EOF
     }
 
   }
-    depends_on = [azurerm_public_ip.vpn-gateway1-pip]
+    depends_on = [azurerm_public_ip.vpn-gateway-pip]
 
 }
 
-resource "azurerm_network_interface" "nic" {
-  name                = "${var.prefix}-nic-internal"
+# Creates a network interface to then associate it with a Linux virtual machine.
+resource "azurerm_network_interface" "nic_linux_vm" {
+  name                = "${var.prefix}-nic-linux-vm"
   location            = data.azurerm_resource_group.rg.location
   resource_group_name = data.azurerm_resource_group.rg.name
 
   ip_configuration {
     name                          = "internal"
-    subnet_id                     = azurerm_subnet.subnet_internal.id
+    subnet_id                     = azurerm_subnet.internal_subnet.id
     private_ip_address_allocation = "Dynamic"
   }
 }
 
+# Creates a marketplace agreement to download a GitLab Bitnami image. It specifies the publisher, offer, and plan parameters.
 resource "azurerm_marketplace_agreement" "gitlabee" {
   publisher = "gitlabinc1586447921813"
   offer     = "gitlabee"
   plan      = "default"
 }
 
+# Creates a Linux virtual machine using the GitLab Bitnami image from the marketplace
 resource "azurerm_linux_virtual_machine" "linux_vm" {
   name                = "${var.prefix}-linux-vm"
   location            = data.azurerm_resource_group.rg.location
@@ -207,7 +217,7 @@ resource "azurerm_linux_virtual_machine" "linux_vm" {
   size                = "Standard_DS1_v2"
   admin_username      = "adminuser"
   network_interface_ids = [
-    azurerm_network_interface.nic.id,
+    azurerm_network_interface.nic_linux_vm.id,
   ]
 
   admin_ssh_key {
@@ -236,14 +246,15 @@ resource "azurerm_linux_virtual_machine" "linux_vm" {
   depends_on = [azurerm_marketplace_agreement.gitlabee]
 }
 
-resource "gitlab_project" "example" {
-  name        = "example"
-  description = "My awesome codebase"
+# Creates a GitLab project named "example" with a visibility level set to "public".
+# resource "gitlab_project" "example" {
+#  name        = "example"
+#  description = "My awesome codebase"
 
-  visibility_level = "public"
-}
+#  visibility_level = "public"
+#}
 
-
+# Creates a network interface named to then associates it with a Windows virtual machine
 resource "azurerm_network_interface" "nic_windows" {
   name                =  "${var.prefix}-nic-internal-windows"
   location            = data.azurerm_resource_group.rg.location
@@ -251,11 +262,12 @@ resource "azurerm_network_interface" "nic_windows" {
 
   ip_configuration {
     name                          = "internal"
-    subnet_id                     = azurerm_subnet.subnet_internal.id
+    subnet_id                     = azurerm_subnet.internal_subnet.id
     private_ip_address_allocation = "Dynamic"
   }
 }
 
+# Creates a Windows virtual machine using the Windows Server image from the marketplace
 resource "azurerm_windows_virtual_machine" "windows_vm" {
   name                = "${var.prefix}-win-vm"
   location            = data.azurerm_resource_group.rg.location
@@ -280,8 +292,9 @@ resource "azurerm_windows_virtual_machine" "windows_vm" {
   }
 }
 
+# Creates an Azure container registry
 resource "azurerm_container_registry" "acr" {
-  name                = "${var.prefix}containerRegistry1"
+  name                = "${var.prefix}containerRegistry"
   location            = data.azurerm_resource_group.rg.location
   resource_group_name = data.azurerm_resource_group.rg.name
   sku                 = "Premium"
