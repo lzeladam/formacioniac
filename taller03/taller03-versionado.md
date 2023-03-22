@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 ## **Qué es Git**
 
 Git es un sistema de control de versiones que te permite llevar un registro completo de los cambios que realizas en tus proyectos.
@@ -57,6 +56,5 @@ Git tiene tres estados: el "Working Directory", el "Staging Area" y el "Reposito
 9. **`git pull`**: Obtiene los cambios desde un repositorio remoto y los fusiona con el repositorio local.
 10. **`git push`**: Sube los cambios realizados en el repositorio local al repositorio remoto.
 11. **`git clone`**: Crea una copia local de un repositorio remoto.
-=======
-oiii
->>>>>>> e137c1a63a50808f6e9d7e37418fb7732cff8b2e
+
+dhasudhsjakdsa
