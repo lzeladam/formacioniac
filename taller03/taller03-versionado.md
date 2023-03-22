@@ -2,7 +2,7 @@
 
 Git es un sistema de control de versiones que te permite llevar un registro completo de los cambios que realizas en tus proyectos.
 
-## Instalar Git:
+## Instalar:
 
 **Ubuntu**:
 
@@ -28,7 +28,7 @@ git config --global user.email "xxxxxxxx.xxxxx@gmail.com"
 git config --global [user.name](http://user.name/) "lzeladam"
 ```
 
-## **Los tres estados de Git**
+## **Los tres estados**
 
 Git tiene tres estados: el "Working Directory", el "Staging Area" y el "Repositorio Local". Estos estados representan diferentes puntos en el proceso de guardar cambios en tu proyecto.
 
@@ -46,7 +46,7 @@ Git tiene tres estados: el "Working Directory", el "Staging Area" y el "Reposito
   
 ![Local Repository Content](imagenes/gitrepositorycontent.png)
 
-## Comandos Basicos de Git
+## Comandos Basicos
 
 1. **`git init`**: Inicializa un nuevo repositorio Git vacío en la carpeta actual.
 2. **`git add`**: Añade cambios al área de preparación (staging area) para ser incluidos en el próximo commit.
@@ -61,7 +61,7 @@ Git tiene tres estados: el "Working Directory", el "Staging Area" y el "Reposito
 11. **`git clone`**: Crea una copia local de un repositorio remoto.
 
 ## **Parte 2 - Terraform**
-## Comandos Basicos de Terraform
+## Comandos Basicos
 
 1. **`terraform init`**: Inicializa el directorio de trabajo de Terraform y descarga los proveedores de nube necesarios.
 2. **`terraform plan`**: Crea un plan de ejecución que muestra los cambios que se realizarán en la infraestructura según el código de Terraform.
