@@ -38,9 +38,12 @@ Git tiene tres estados: el "Working Directory", el "Staging Area" y el "Reposito
 - **Staging Area**: Es una zona intermedia entre el “Working Directory” y el “Local Repository”. Cuando haces un **`git add`**, estás agregando los cambios de tu “Working Directory” a esta zona.
 - **Local Repository**: Es donde Git guarda un registro completo de los cambios que has realizado. Cuando haces un **`git commit`**, estás guardando los cambios del “Staging Area” en el “Repositorio Local”, vendría a ser la carpeta “.git”.
   
-  - El Local Repository esta en la carpeta oculta .git
+  - El Local Repository está ubicado en la carpeta oculta .git
+  
 ![Local Repository](imagenes/gitrepository.png "El Local Repository esta en la carpeta oculta .git")
-  - Contenido del Local Repository
+
+  - Contenido de Local Repository
+  
 ![Local Repository Content](imagenes/gitrepositorycontent.png)
 
 ## Comandos Basicos de Git
