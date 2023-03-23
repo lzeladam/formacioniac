@@ -144,6 +144,26 @@ Para confirmar la suscripción actual en Azure CLI:
 ```powershell
 az account show
 ```
+
+## 5. Configuar VS Code
+
+Instale la extension oficial de terraform para tener validación y autocompletado de codigo:
+
+- Name: HashiCorp Terraform
+- Id: hashicorp.terraform
+- Description: Syntax highlighting and autocompletion for Terraform
+- Version: 2.25.4
+- Publisher: HashiCorp
+- VS Marketplace Link: https://marketplace.visualstudio.com/items?itemName=HashiCorp.terraform
+
+![Syntax highlighting and autocompletion for Terraform](../taller01/imagenes/ExtensionTerraform.png)
+
+
+Agregue terminal de Git Bash:
+
+![Syntax highlighting and autocompletion for Terraform](../taller01/imagenes/GitBashVsCode.png)
+
+
 # Demo
 
 Abre el terminal de Git Bash y genera la clave SSH usando el siguiente comando :
