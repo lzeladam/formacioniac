@@ -9,13 +9,19 @@ terraform {
       version = "15.9.0"
     }
   }
+  backend "azurerm" {
+    resource_group_name  = "GR_LABS"
+    storage_account_name = "backendtfsate"
+    container_name       = "tfstate"
+    key                  = "demo02.tfstate"
+  }
 }
 
 # Configure the GitLab Provider
-provider "gitlab" {
-  token = var.gitlab_token
-  base_url  = "http://10.0.2.4"
-}
+#provider "gitlab" {
+#  token = var.gitlab_token
+#  base_url  = "http://10.0.2.4"
+#}
 
 # Configure the AZURE Provider
 provider "azurerm" {
