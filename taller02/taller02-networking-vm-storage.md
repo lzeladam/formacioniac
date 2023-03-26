@@ -59,6 +59,7 @@ Para poder conectarse a la red privada mediante una VPN point to site será nece
 - Instale el cliente VPN de azure: [https://aka.ms/azvpnclientdownload](https://aka.ms/azvpnclientdownload)
 - Descargue la configuración del perfil de cliente en el cliente VPN con los siguientes comandos:
 
+**Git Bash**
 ```bash
 profile=$(az network vnet-gateway vpn-client generate --resource-group NOMBRE_RESOURCE_GROUP  --name taller02-vpn-gateway --authentication-method EapTls --output json)
 echo $profile
@@ -66,6 +67,22 @@ echo $profile
 curl -L "$profile" -o vpnclientconfiguration.zip
 # Descomprimir el archivo de configuración
 unzip vpnclientconfiguration.zip -d vpnconfig
+```
+
+**Powershell**
+```Powershell
+# Generar el perfil VPN
+$profile = az network vnet-gateway vpn-client generate --resource-group NOMBRE_RESOURCE_GROUP --name taller02-vpn-gateway --authentication-method EapTls --output json | ConvertFrom-Json
+
+# Imprimir el perfil VPN
+Write-Output $profile
+
+# Descargar el archivo de configuración
+Invoke-WebRequest -Uri $profile -OutFile "vpnclientconfiguration.zip"
+
+# Descomprimir el archivo de configuración
+Expand-Archive -Path "vpnclientconfiguration.zip" -DestinationPath "vpnconfig"
+
 ```
 
 - Luego de descargar la configuración del perfil del cliente, es necesario importarla en el cliente VPN
