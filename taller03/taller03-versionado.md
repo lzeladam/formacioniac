@@ -265,3 +265,9 @@ terraform init -plugin-dir=./.terraform/localmirror
 terraform providers mirror -plugin-dir=./.terraform/localmirror
 terraform providers mirror -platform=windows_386  ./.terraform/localmirror
 ```
+
+## Enlace de Interes
+
+https://developer.hashicorp.com/terraform/internals/provider-registry-protocol
+
+## DEMO push
