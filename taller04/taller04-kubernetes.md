@@ -15,21 +15,28 @@ Portabilidad: Kubernetes se puede ejecutar en cualquier lugar, lo que significa 
 
 La arquitectura de Kubernetes consta de varios componentes principales que trabajan juntos para implementar y gestionar aplicaciones en contenedores.
 
-Cluster: El cluster de Kubernetes es el conjunto de nodos y componentes que trabajan juntos para ejecutar aplicaciones en contenedores.
+Control Plane Components: These are the components responsible for managing the cluster's overall state. The control plane components include:
+kube-apiserver: This component exposes the Kubernetes API and serves as the front-end for the control plane. It validates and processes requests from kubectl and other Kubernetes components.
 
-Nodo: Un nodo de Kubernetes es una máquina física o virtual que ejecuta los contenedores. Cada nodo tiene un agente llamado kubelet que se comunica con el servidor de control de Kubernetes.
+etcd: This is the key-value store that Kubernetes uses to store its state. The API server reads and writes all cluster state into etcd.
 
-Servidor de control: El servidor de control de Kubernetes es el componente principal que gestiona y coordina el cluster. Incluye componentes como el API server, el etcd y el controller manager.
+kube-controller-manager: This component runs a set of controllers that are responsible for maintaining the desired state of the cluster. For example, the Replication Controller ensures that a specified number of pod replicas are running at all times.
 
-API Server: El API server es el componente principal que expone la API de Kubernetes.
+kube-scheduler: This component assigns pods to nodes based on resource availability and scheduling requirements.
 
-Etcd: Etcd es una base de datos distribuida que almacena el estado del cluster.
+Node Components: These are the components that run on each node in the cluster. The node components include:
+kubelet: This component is responsible for managing the state of each node in the cluster. It communicates with the API server to receive and execute pod manifests.
 
-Controller Manager: El controller manager es el componente que gestiona los controladores de Kubernetes, como el controlador de replicación.
+kube-proxy: This component is responsible for managing network routing on each node in the cluster. It maintains network rules and forwards traffic to the appropriate pod.
 
-Pod: Un pod de Kubernetes es la unidad más pequeña que se puede implementar en el cluster. Contiene uno o varios contenedores que comparten recursos como el almacenamiento y la red.
+container runtime: This component is responsible for running containers on the node. Kubernetes supports several container runtimes, including Docker, CRI-O, and containerd.
 
-Contenedor: Un contenedor es un paquete de software que incluye todo lo necesario para ejecutar una aplicación, como el código, las bibliotecas y las dependencias.
+Add-ons: These are optional components that provide additional functionality to the cluster. Some popular add-ons include:
+kube-dns: This provides DNS resolution for services running in the cluster.
+
+Dashboard: This provides a web-based user interface for managing the cluster.
+
+Ingress Controller: This provides HTTP load balancing and proxying for services running in the cluster.
 
 # Lens
 
