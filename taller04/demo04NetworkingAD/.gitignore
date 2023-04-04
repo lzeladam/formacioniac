@@ -1,0 +1,25 @@
+# Terraform files to ignore
+.terraform/
+terraform.tfstate
+terraform.tfstate.backup
+terraform.log
+.terraform.lock.hcl
+
+# Ignore any temporary files
+*.tfstate.*
+*.tfplan
+
+# Ignore any override files as they are usually used to override resources locally and should not be checked in
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+
+# Ignore the .terraformrc file as it typically contains tokens or credentials
+.terraformrc
+
+# Ignore the crash.log file as it is usually a result of a terraform crash
+crash.log
+
+# Ignore any .terraform directories downloaded from the Terraform Module Registry
+/module/*

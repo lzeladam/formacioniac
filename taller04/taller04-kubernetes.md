@@ -31,7 +31,8 @@ Es responsable de gestionar el estado del clúster, programar y escalar aplicaci
     </aside>
     
 
-![kube-api-server.drawio-1.png](/taller04/imagenes/kube-api-server.drawio-1.png) Tomado de Kubernetes Architecture Explained Devopscube.com
+![kube-api-server.drawio-1.png](/taller04/imagenes/kube-api-server.drawio-1.png) 
+Tomado de Kubernetes Architecture Explained Devopscube.com
 
 1. **Etcd**: 
    
@@ -55,12 +56,14 @@ Es responsable de gestionar el estado del clúster, programar y escalar aplicaci
     3. etcd expone una API clave-valor mediante gRPC. Además, el gateway gRPC es un proxy RESTful que traduce todas las llamadas de API HTTP en mensajes gRPC. Esto lo convierte en una base de datos ideal para Kubernetes.
     4. etcd almacena todos los objetos en formato clave-valor bajo la clave /registry/directory. Por ejemplo, la información sobre un pod llamado Nginx en el namspace por default se puede encontrar en /registry/pods/default/nginx.
         
-        ![image-5-760x704.png](imagenes/etcd.png) Tomado de Kubernetes Architecture Explained Devopscube.com
+        ![image-5-760x704.png](imagenes/etcd.png) 
+        Tomado de Kubernetes Architecture Explained Devopscube.com
         
 2. **kube-scheduler**
         
     Responsable de programar los pods en los worker nodes. Cuando se implementa un pod, se especifican los requisitos del pod, como la CPU, la memoria, la afinidad, los taints o tolerations, la prioridad, los volúmenes persistentes (PV), etc. La tarea principal del scheduler es identificar la solicitud de creación y elegir el mejor nodo para un pod que cumpla con los requisitos.
-        ![image-5-760x704.png](imagenes/kubescheduler.png) Tomado de Kubernetes Architecture Explained Devopscube.com 
+        ![image-5-760x704.png](imagenes/kubescheduler.png) 
+        Tomado de Kubernetes Architecture Explained Devopscube.com 
         
 3. **Kube Controller Manager**
         
@@ -68,7 +71,8 @@ Es responsable de gestionar el estado del clúster, programar y escalar aplicaci
         
     El Kube Controller Manager es un componente que administra todos los controladores de Kubernetes. Los recursos/objetos de Kubernetes como pods, namespaces, jobs y replicaset son gestionados por controladores respectivos. Además, el **kube-scheduler** también es un controlador gestionado por el administrador de controladores de Kube.
         
-    ![image-9-690x1024.png](imagenes/kubecontrollermanager.png) Tomado de Kubernetes Architecture Explained Devopscube.com
+    ![image-9-690x1024.png](imagenes/kubecontrollermanager.png) 
+    Tomado de Kubernetes Architecture Explained Devopscube.com
         
 4. **Cloud Controller Manager (CCM)**
         
@@ -76,11 +80,13 @@ Es responsable de gestionar el estado del clúster, programar y escalar aplicaci
         
     En esencia, Cloud Controller Manager se encarga de gestionar los recursos de la nube en nombre de Kubernetes. Por ejemplo, puede provisionar instancias de nodos en la nube, load balancers y Storage Volumes ( for persistent volumes)
         
-    ![Untitled](imagenes/k8scloudcontroller.png) Tomado de Kubernetes Architecture Explained Devopscube.com
+    ![Untitled](imagenes/k8scloudcontroller.png) 
+    Tomado de Kubernetes Architecture Explained Devopscube.com
         
     Para ello, Cloud Controller Manager se comunica con la API de la plataforma en la nube para crear, actualizar o eliminar recursos de la nube de acuerdo con los cambios en el estado de los objetos de Kubernetes. Esto permite que los clústeres de Kubernetes se integren con diferentes proveedores de servicios en la nube, lo que a su vez permite una mayor flexibilidad y portabilidad en la nube.
         
-    ![Untitled](imagenes/Cloud-Controller-Manager.png) Tomado de Kubernetes Architecture Explained Devopscube.com
+    ![Untitled](imagenes/Cloud-Controller-Manager.png) 
+    Tomado de Kubernetes Architecture Explained Devopscube.com
 
           
     ## **Kubernetes Worker Node Components**
@@ -106,7 +112,8 @@ Es responsable de gestionar el estado del clúster, programar y escalar aplicaci
         
     El kubelet utiliza CNI (Container Networking Interface) para administrar la conectividad de red de los pods en el clúster de Kubernetes. Cuando se crea un pod, el kubelet utiliza el plugin CNI configurado en el clúster para asignar una dirección IP al pod y establecer la conectividad de red necesaria para que el pod pueda comunicarse con otros recursos dentro y fuera del clúster. El plugin de CNI seleccionado por el kubelet es responsable de crear y configurar las interfaces de red virtuales necesarias para el pod y de asegurar que se configuren correctamente para que el pod pueda comunicarse con el mundo exterior.
         
-    ![kubelet-architecture-760x937.png](imagenes/kubelet-architecture.png) Tomado de Kubernetes Architecture Explained Devopscube.com
+    ![kubelet-architecture-760x937.png](imagenes/kubelet-architecture.png) 
+    Tomado de Kubernetes Architecture Explained Devopscube.com
         
 6. **Kube proxy**
         
@@ -114,7 +121,8 @@ Es responsable de gestionar el estado del clúster, programar y escalar aplicaci
         
     El servicio en Kubernetes es una forma de exponer un conjunto de pods internamente o al tráfico externo. Cuando se crea el objeto de servicio, se le asigna una dirección IP virtual llamada clusterIP, que solo es accesible dentro del clúster de Kubernetes
         
-    ![image-14-748x1024.png](imagenes/kubeproxy.png) Tomado de Kubernetes Architecture Explained Devopscube.com
+    ![image-14-748x1024.png](imagenes/kubeproxy.png) 
+    Tomado de Kubernetes Architecture Explained Devopscube.com
         
  7. **Container Runtime**
         
@@ -126,7 +134,8 @@ Es responsable de gestionar el estado del clúster, programar y escalar aplicaci
         
     Aquí hay una descripción general de alto nivel de cómo funciona el tiempo de ejecución de contenedores con Kubernetes CRI-O.
         
-    ![image-5-1024x702.png](imagenes/containerruntime.png) Tomado de Kubernetes Architecture Explained Devopscube.com
+    ![image-5-1024x702.png](imagenes/containerruntime.png) 
+    Tomado de Kubernetes Architecture Explained Devopscube.com
         
     * Cuando hay una nueva solicitud de un pod desde el servidor API, el kubelet se comunica con el demonio CRI-O para lanzar los contenedores necesarios a través de la Interfaz de tiempo de ejecución de contenedor de Kubernetes.
     * CRI-O verifica y descarga la imagen del contenedor requerida desde el registro de contenedor configurado utilizando la biblioteca containers/image.
