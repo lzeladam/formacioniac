@@ -32,11 +32,15 @@ data "azurerm_resource_group" "rg" {
 }
 
 # Datos de usuario Azure Active Directory (AAD)
+# Utiliza "azuread" de Terraform para buscar información sobre un usuario en Azure Active Directory (AAD).
+# Un usuario con el valor de "mail_nickname" igual a "alexander.zelada_outlook.com#EXT#"
 data "azuread_user" "aad" {
   mail_nickname = "alexander.zelada_outlook.com#EXT#"
 }
 
 # Grupo de Azure Active Directory (AAD)
+# Se crea un grupo en Azure Active Directory (AAD) llamado "Kubernetes Admins"
+# Y se agrega un miembro, el que se especifica en el mail_nickname
 resource "azuread_group" "k8sadmins" {
   display_name = "Kubernetes Admins"
   members = [
@@ -46,6 +50,8 @@ resource "azuread_group" "k8sadmins" {
 }
 
 # Identidad asignada por usuario de AZURE
+# En términos simples, una identidad de usuario en Azure es un objeto que representa a un usuario 
+# o a una aplicación en una instancia de Azure
 resource "azurerm_user_assigned_identity" "main" {
   resource_group_name = data.azurerm_resource_group.rg.name
   location            = data.azurerm_resource_group.rg.location
@@ -54,7 +60,7 @@ resource "azurerm_user_assigned_identity" "main" {
 }
 
 # Subred AZURE
-resource "azurerm_virtual_network" "test" {
+resource "azurerm_virtual_network" "demo04_vn" {
   address_space       = ["10.52.0.0/16"]
   location            = data.azurerm_resource_group.rg.location
   name                = "demo04-vn"
@@ -62,11 +68,19 @@ resource "azurerm_virtual_network" "test" {
 }
 
 # Subred AZURE
-resource "azurerm_subnet" "test" {
+resource "azurerm_subnet" "application" {
   address_prefixes                          = ["10.52.0.0/24"]
-  name                                      = "subnet-sn"
+  name                                      = "application-sn"
   resource_group_name                       = data.azurerm_resource_group.rg.name
-  virtual_network_name                      = azurerm_virtual_network.test.name
+  virtual_network_name                      = azurerm_virtual_network.demo04_vn.name
+  private_endpoint_network_policies_enabled = true
+}
+
+resource "azurerm_subnet" "database" {
+  address_prefixes                          = ["10.52.1.0/24"]
+  name                                      = "database-sn"
+  resource_group_name                       = data.azurerm_resource_group.rg.name
+  virtual_network_name                      = azurerm_virtual_network.demo04_vn.name
   private_endpoint_network_policies_enabled = true
 }
 
@@ -115,15 +129,15 @@ resource "azurerm_kubernetes_cluster" "k8s" {
   private_cluster_enabled = true
 
   default_node_pool {
-    name                = "agentpool"
+    name                = "apppool"
     vm_size             = "Standard_D2_v2"
-    node_count          = var.agent_count
-    vnet_subnet_id      = azurerm_subnet.test.id
+    vnet_subnet_id      = azurerm_subnet.application.id
     enable_auto_scaling = true
     zones               = ["1", "3"]
     max_count           = 3
     min_count           = 1
   }
+
   linux_profile {
     admin_username = "ubuntu"
 
@@ -140,4 +154,18 @@ resource "azurerm_kubernetes_cluster" "k8s" {
     client_secret = var.aks_service_principal_client_secret
   }
   */
+}
+
+resource "azurerm_kubernetes_cluster_node_pool" "dbpool" {
+  name                  = "dbpool"
+  kubernetes_cluster_id = azurerm_kubernetes_cluster.k8s.id
+  vm_size               = "Standard_DS2_v2"
+  vnet_subnet_id      = azurerm_subnet.database.id
+  enable_auto_scaling = true
+  zones               = ["1", "3"]
+  max_count           = 2
+  min_count           = 1
+  tags = {
+    Environment = "Database"
+  }
 }

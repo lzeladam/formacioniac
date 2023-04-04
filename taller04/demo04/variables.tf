@@ -1,5 +1,5 @@
 variable "prefix" {
-  default = "glbrs"
+  default = "taller04"
 }
 
 variable "agent_count" {
@@ -7,7 +7,7 @@ variable "agent_count" {
 }
 
 # The following two variable declarations are placeholder references.
-# Set the values for these variable in terraform.tfvars
+# Set the values for these variable in taller04.tfvars
 variable "aks_service_principal_app_id" {
   default = ""
 }
@@ -22,11 +22,6 @@ variable "cluster_name" {
 
 variable "dns_prefix" {
   default = "k8stest"
-}
-
-variable "resource_group_location" {
-  default     = "eastus"
-  description = "Location of the resource group."
 }
 
 variable "ssh_public_key" {
