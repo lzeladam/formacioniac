@@ -215,7 +215,10 @@ Utiliza un Deployment cuando necesites administrar aplicaciones sin estado que s
 
 ![deployment](imagenes/deployment.png) 
 
+### Demo AKS + networking + Active Directory
+Este diagrama muestra la relación de los componentes del taller04
 
+![arquitecturaaksad](imagenes/arquitecturaaksad.png) 
 
 # Lens
 

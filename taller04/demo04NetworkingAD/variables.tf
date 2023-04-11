@@ -33,3 +33,8 @@ variable "identity_ids" {
   description = "(Optional) Specifies a list of User Assigned Managed Identity IDs to be assigned to this Kubernetes Cluster."
   default     = null
 }
+
+variable "acr_name" {
+  description = "Nombre del Azure Container Registry"
+  default     = "myacrk8sgr"
+}

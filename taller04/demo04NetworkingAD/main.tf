@@ -12,12 +12,16 @@ terraform {
       source  = "hashicorp/azuread"
       version = "~> 2.15.0"
     }
+    kubernetes = {
+      source  = "hashicorp/kubernetes"
+      version = "~> 2.19.0"
+    }
   }
   backend "azurerm" {
     resource_group_name  = "GR_LABS"
     storage_account_name = "backendtfsate"
     container_name       = "tfstate"
-    key                  = "demoaks.tfstate"
+    key                  = "demoaksad.tfstate"
   }
 }
 
@@ -29,6 +33,11 @@ provider "azurerm" {
 # Datos de resource group AZURE
 data "azurerm_resource_group" "rg" {
   name = "GR_LABS"
+}
+
+provider "kubernetes" {
+  # Configura el proveedor de Kubernetes utilizando el contexto del clúster creado en azurerm_kubernetes_cluster
+  config_path = azurerm_kubernetes_cluster.k8s.kube_config_raw
 }
 
 # Datos de usuario Azure Active Directory (AAD)
@@ -168,4 +177,30 @@ resource "azurerm_kubernetes_cluster_node_pool" "dbpool" {
   tags = {
     Environment = "Database"
   }
+  depends_on = [azurerm_kubernetes_cluster.k8s]
+}
+
+
+# Crear un Azure Container Registry básico
+resource "azurerm_container_registry" "acr" {
+  name                     = var.acr_name
+  resource_group_name      = data.azurerm_resource_group.rg.name
+  location                 = data.azurerm_resource_group.rg.location
+  sku                      = "Basic"
+  admin_enabled            = true
+}
+
+resource "kubernetes_secret" "acr" {
+  depends_on = [azurerm_container_registry.acr]
+
+  metadata {
+    name = "acr-auth"
+  }
+
+  data = {
+    username      = azurerm_container_registry.acr.admin_username
+    password      = azurerm_container_registry.acr.admin_password
+  }
+
+  type = "kubernetes.io/dockerconfigjson"
 }
