@@ -142,6 +142,81 @@ Tomado de Kubernetes Architecture Explained Devopscube.com
     * CRI-O luego genera la especificación de tiempo de ejecución OCI (JSON) para un contenedor.
     * CRI-O luego lanza un tiempo de ejecución compatible con OCI (runc) para iniciar el proceso del contenedor según la especificación de tiempo de ejecución.
 
+
+### **Almacenamiento persistente en Azure Kubernetes Service (AKS)**
+
+
+**Persistent Volume (PV)**
+
+Un Persistent Volume (PV) es una unidad de almacenamiento en el clúster que ha sido aprovisionada por un administrador o dinámicamente mediante una Storage Class. Representa un recurso en el clúster de Kubernetes que se utiliza para almacenar datos de forma persistente. Los PV están asociados a un almacenamiento físico en Azure, como Azure Disk o Azure Files.
+
+**Persistent Volume Claim (PVC)**
+
+Un Persistent Volume Claim (PVC) es una solicitud de almacenamiento por parte de un usuario. Los PVC solicitan un volumen persistente de un tamaño específico y características de acceso (lectura, escritura, etc.). Cuando un PVC es creado y enlazado a un PV, el almacenamiento se asigna y está disponible para ser utilizado por los pods en el clúster de Kubernetes.
+
+**Storage Class**
+
+Una Storage Class es una abstracción que define cómo se aprovisionan los PV en función de las solicitudes de los PVC. Se utiliza para describir y clasificar las diferentes opciones de almacenamiento disponibles en el clúster. Los administradores pueden definir varias Storage Classes para diferentes tipos y configuraciones de almacenamiento en Azure, como Azure Disk con diferentes niveles de rendimiento (Standard, Premium, etc.) o Azure Files. Cuando un PVC solicita un volumen persistente, el sistema de Kubernetes selecciona y aprovisiona dinámicamente un PV que cumpla con los requisitos de la Storage Class solicitada.
+
+**Almacenamiento físico en AKS**
+
+El almacenamiento físico en AKS se refiere a los servicios de almacenamiento en la nube de Azure que se utilizan para aprovisionar los PV. Estos servicios incluyen Azure Disk y Azure Files, entre otros. Estos servicios de almacenamiento son gestionados por Azure y están disponibles para su uso en clústeres de Kubernetes.
+
+**Resumen**
+
+En resumen, un PVC es una solicitud de almacenamiento de un usuario en un clúster de Kubernetes. El clúster utiliza las Storage Classes para determinar cómo se aprovisiona un PV en función de la solicitud del PVC. Los PV están respaldados por almacenamiento físico en Azure, como Azure Disk o Azure Files. Cuando un PVC se enlaza a un PV, el almacenamiento está disponible para ser utilizado por los pods en el clúster.
+
+![storageaks](imagenes/storageaks.png) 
+
+### **Explicación de StatefulSet, DaemonSet y Deployment en Kubernetes**
+
+**StatefulSet:**
+
+Un StatefulSet es un controlador de alto nivel en Kubernetes que se utiliza para administrar aplicaciones con estado. A diferencia de un Deployment, que no garantiza el orden de despliegue y la identidad única de los pods, un StatefulSet garantiza que los pods se creen en un orden secuencial y mantengan una identidad única y persistente. Esto es útil para aplicaciones que requieren un estado persistente, como bases de datos y sistemas de almacenamiento distribuido.
+
+**Casos de uso:**
+
+Bases de datos (por ejemplo, MongoDB, PostgreSQL, MySQL)
+Sistemas de almacenamiento distribuido (por ejemplo, Apache Cassandra, Apache ZooKeeper)
+Cuándo utilizar un StatefulSet:
+
+Utiliza un StatefulSet cuando necesites mantener un estado persistente y una identidad única entre los pods de tu aplicación. Los StatefulSets garantizan el orden de despliegue y la identidad de los pods, lo que los hace ideales para aplicaciones con estado como bases de datos y sistemas de almacenamiento distribuido.
+
+![statefulset](imagenes/statefulset.png) 
+
+**DaemonSet:**
+
+Un DaemonSet es un controlador que garantiza que un pod en particular se ejecute en todos (o en algunos) nodos del clúster. Cuando se agrega un nuevo nodo al clúster, automáticamente se crea un nuevo pod para ese nodo. Si un nodo se elimina del clúster, también se eliminarán los pods asociados. Los DaemonSets son útiles para ejecutar tareas de administración y monitoreo en todos los nodos del clúster.
+
+**Casos de uso:**
+
+Monitoreo de nodos y recolección de métricas (por ejemplo, Prometheus Node Exporter)
+Administración de registros y envío de registros a sistemas centralizados (por ejemplo, Fluentd, Logstash)
+Implementación de agentes de seguridad y red (por ejemplo, agentes de firewall, agentes de protección de puntos finales)
+Cuándo utilizar un DaemonSet:
+
+Utiliza un DaemonSet cuando necesites ejecutar una instancia de un pod en todos (o en algunos) nodos del clúster. Los DaemonSets son ideales para tareas de monitoreo, administración de registros y agentes de seguridad que deben estar presentes en cada nodo.
+
+![daemonset](imagenes/daemonset.png) 
+
+
+**Deployment:**
+
+Un Deployment es un controlador que se utiliza para administrar aplicaciones sin estado en Kubernetes. Los Deployments permiten escalar horizontalmente las aplicaciones, actualizarlas y revertir a versiones anteriores. Los pods creados por un Deployment no tienen una identidad única y persistente, lo que los hace ideales para aplicaciones que no necesitan mantener un estado persistente entre reinicios.
+
+**Casos de uso:**
+
+Aplicaciones web sin estado (por ejemplo, servidores web, aplicaciones front-end)
+Microservicios sin estado y APIs REST
+Procesamiento en segundo plano y trabajos de cola
+Cuándo utilizar un Deployment:
+
+Utiliza un Deployment cuando necesites administrar aplicaciones sin estado que se puedan escalar horizontalmente y no requieran una identidad única entre los pods. Los Deployments son ideales para aplicaciones web, microservicios y trabajos de procesamiento en segundo plano que no mantienen un estado persistente.
+
+![deployment](imagenes/deployment.png) 
+
+
+
 # Lens
 
 Seguir los pasos para instalar Lens:
