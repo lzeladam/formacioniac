@@ -116,7 +116,7 @@ resource "azurerm_windows_virtual_machine" "windows_vm" {
     encryption_at_host_enabled = false
     extensions_time_budget     = "PT1H30M"
     hotpatching_enabled        = false
-    id                         = "/subscriptions/9a392b6d-8383-4bbe-bf50-bed482d1792c/resourceGroups/GR_LABS/providers/Microsoft.Compute/virtualMachines/taller02-win-vm"
+    id                         = "/subscriptions/appId/resourceGroups/GR_LABS/providers/Microsoft.Compute/virtualMachines/taller02-win-vm"
     location                   = "eastus2"
     max_bid_price              = -1
     name                       = "taller02-win-vm"
