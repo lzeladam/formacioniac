@@ -117,14 +117,17 @@ PS C:\agent> .\run.cmd
 Al final de estos pasos tendremos el agente en el estado online
 
 **Configuracion del agente**
+
 ![agentes](imagenes/agente.png) 
 
 Ahora creamos el repositorio de git
 
 **Repositorio de git**
+
 ![crearrepositoriogit](imagenes/crearrepositoriogit.png) 
 
 **Creamos una release con los steps de la pipeline**
+
 ![releases](imagenes/releases.png) 
 
 # Enlaces de Interés
