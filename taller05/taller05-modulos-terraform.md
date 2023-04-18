@@ -85,10 +85,12 @@ Azure DevOps es una suite de servicios de colaboración para el desarrollo y ent
 ![organizacion](imagenes/organizacion.png) 
 
 **Configuracion de pool agentes**
+
 ![poolagentes](imagenes/poolagentes.png) 
 
 
 **Descargar del agente**
+
 ![descargaragente](imagenes/descargaragente.png) 
 
 Crear el agente
