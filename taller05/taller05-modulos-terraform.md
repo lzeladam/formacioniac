@@ -19,7 +19,7 @@ Un módulo de Terraform (generalmente el módulo raíz  o root de una configurac
 
 Llamada Local Child Module
 
-```json
+```bash
 module "servers" {
   source = "./app-cluster"
 
@@ -29,7 +29,7 @@ module "servers" {
 
 Llamada GitHub Child Module
 
-```json
+```bash
 module "consul" {
   source = "github.com/hashicorp/example"
 }
@@ -37,7 +37,7 @@ module "consul" {
 
 Version
 
-```json
+```bash
 module "consul" {
   source  = "hashicorp/consul/aws"
   version = "0.0.5"
@@ -48,7 +48,7 @@ module "consul" {
 
 Recuperar el valor de un output de un modulo
 
-```json
+```bash
 resource "aws_elb" "example" {
   # ...
 
