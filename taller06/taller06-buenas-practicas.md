@@ -30,7 +30,7 @@
 - Dificulta la gestión de dependencias: La administración de bibliotecas y componentes compartidos puede volverse más compleja.
 - Requiere más esfuerzo para coordinar: La sincronización y el mantenimiento de repositorios separados implica un esfuerzo adicional.
 
-![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/9b3cb481-76d2-49df-9510-99be9debd98f/Untitled.png)
+![Estrategia de Repositorio](imagenes/repoestrategia.png) 
 
 **2. GitOps: Automatización y Colaboración en la Gestión de Infraestructura utilizando Git**
 
@@ -52,16 +52,22 @@ Algunas características clave de Flux son:
 - Recuperación automática: Si se producen discrepancias entre el estado actual del clúster y el estado deseado definido en el repositorio Git, Flux detecta y corrige automáticamente estas desviaciones, garantizando la consistencia y estabilidad del sistema.
 - Integración con Helm: Flux se integra con Helm, el gestor de paquetes de Kubernetes, lo que facilita la administración de aplicaciones y la configuración de Helm en un entorno GitOps.
 
-3. Mejores Prácticas para la Gestión de Infraestructura y Código: Guías y Recomendaciones
+**3. Mejores Prácticas para la Gestión de Infraestructura y Código: Guías y Recomendaciones**
 
 3.1 Terraform
+
 [https://www.terraform-best-practices.com/](https://www.terraform-best-practices.com/)
+
 3.2 Azure
+
 [https://learn.microsoft.com/en-us/azure/architecture/guide/design-principles/](https://learn.microsoft.com/en-us/azure/architecture/guide/design-principles/)
+
 3.3 Git
 
 - Git Flow
-[https://www.atlassian.com/es/git/tutorials/comparing-workflows/gitflow-workflow](https://www.atlassian.com/es/git/tutorials/comparing-workflows/gitflow-workflow)
+  
+    [https://www.atlassian.com/es/git/tutorials/comparing-workflows/gitflow-workflow](https://www.atlassian.com/es/git/tutorials/comparing-workflows/gitflow-workflow)
+
 - Trunk-Based Development
     
     [https://trunkbaseddevelopment.com/](https://trunkbaseddevelopment.com/) 
@@ -70,3 +76,7 @@ Algunas características clave de Flux son:
 # Enlaces de Interés
 
 [https://fluxcd.io/](https://fluxcd.io/)
+
+https://github.com/shuaibiyy/awesome-terraform
+
+https://www.redhat.com/es/topics/devops/what-is-gitops
