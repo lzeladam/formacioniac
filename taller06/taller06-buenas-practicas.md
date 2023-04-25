@@ -52,6 +52,10 @@ Algunas características clave de Flux son:
 - Recuperación automática: Si se producen discrepancias entre el estado actual del clúster y el estado deseado definido en el repositorio Git, Flux detecta y corrige automáticamente estas desviaciones, garantizando la consistencia y estabilidad del sistema.
 - Integración con Helm: Flux se integra con Helm, el gestor de paquetes de Kubernetes, lo que facilita la administración de aplicaciones y la configuración de Helm en un entorno GitOps.
 
+
+![gitops-toolkit](imagenes/gitops-toolkit.png) 
+
+
 **3. Mejores Prácticas para la Gestión de Infraestructura y Código: Guías y Recomendaciones**
 
 3.1 Terraform
@@ -80,3 +84,5 @@ Algunas características clave de Flux son:
 https://github.com/shuaibiyy/awesome-terraform
 
 https://www.redhat.com/es/topics/devops/what-is-gitops
+
+https://landscape.cncf.io/
